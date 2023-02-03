@@ -6,7 +6,7 @@
 /*   By: tpicoule <tpicoule@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:26:55 by tpicoule          #+#    #+#             */
-/*   Updated: 2023/01/31 10:42:20 by tpicoule         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:22:11 by tpicoule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_find_path(char **env, char *cmd, t_pipex *value)
 	return (value->newenv);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
 

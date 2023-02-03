@@ -6,7 +6,7 @@
 /*   By: tpicoule <tpicoule@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:58:06 by tpicoule          #+#    #+#             */
-/*   Updated: 2023/01/31 10:42:29 by tpicoule         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:22:31 by tpicoule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**funct_split(char *s, char c)
 	return (tabtab);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 
 {
 	char	*result;

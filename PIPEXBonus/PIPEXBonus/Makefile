@@ -6,14 +6,14 @@
 #    By: tpicoule <tpicoule@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/16 09:58:45 by tpicoule          #+#    #+#              #
-#    Updated: 2023/01/26 11:31:20 by tpicoule         ###   ########.fr        #
+#    Updated: 2023/02/03 11:40:28 by tpicoule         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= pipex
-SOURCES		= pipex_utils.c \
-			  pipex_utils_2.c \
-			  pipex.c
+NAME		= pipex_bonus
+SOURCES		= pipex_utils_bonus.c \
+			  pipex_utils_2_bonus.c \
+			  pipex_bonus.c
 OBJECTS		= ${SOURCES:.c=.o}
 RM			= rm -f
 CC			= gcc
