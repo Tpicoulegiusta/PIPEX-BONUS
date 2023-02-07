@@ -6,36 +6,15 @@
 /*   By: tpicoule <tpicoule@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 07:59:38 by tpicoule          #+#    #+#             */
-/*   Updated: 2023/02/03 14:34:14 by tpicoule         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:35:06 by tpicoule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 //#include <signal.h>
 
-/* void    funkchild(void)
-{
-    dup2(var->pipefd[1], STDOUT_FILENO);
-	close(var->pipefd[1]);
-	close(var->pipefd[0]);
-	var->argu = funct_split();
-    printf("cacaprout\n");
-    exit(1);
-} */
-
 int	main(int argc, char **argv, char **env)
 {
-	/* //LA FUTUR STRUCTURE
-	int		cmds;
-	int		pid;
-	int		**pipefds;  //A MALLOC
-	int		nbpipes;
-	int		pid[cmds];
-	char	**argu;
-	char	**argu2;
-	char	*path;
-	int		pid2;
- */
 	t_pipex	*value;
 	int		file1;
 	int		file2;
@@ -44,22 +23,21 @@ int	main(int argc, char **argv, char **env)
 
 	i = 0;
 	value = malloc(sizeof(*value));
-		if (!value)
-			return (0);
-	int		pid[value->cmds];
+	if (!value)
+		return (0);
 	value->cmds = argc - 3;
 	value->nbpipes = value->cmds - 1;
 	j = 2;
-	value->pipefds = malloc(sizeof(char *) * (2 + 1));
+	value->pipefds = malloc(sizeof(int *) * value->cmds);
 		if (!value->pipefds)
 			return (0);
 	
-		if (argc < 0)
+		if (argc < 4)
 	{
-		perror("ERROR too few args or too much");
+		perror("ERROR too few args");
 		exit(EXIT_FAILURE);
 	}
-	
+
 	//ON GERE LES OPEN ET LES FILES
 	file1 = open(argv[1], O_RDONLY, 0777);
 	file2 = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
@@ -67,16 +45,17 @@ int	main(int argc, char **argv, char **env)
 	dup2(file2, STDOUT_FILENO);
 
 	//ON CREER LES PIPES
-	j = 0;
+	j = 3;
 	while (value->nbpipes > 0)
 	{
+		value->pipefds[i] = malloc(sizeof(int) * 2);
 		pipe(value->pipefds[i]);
 		if (pipe(value->pipefds[i]) == -1)
 			return (1);
 		i++;
 		value->nbpipes--;
 	}
-	i = 1;	
+	i = 0;	
 	//ON CREER LES ENFANTS(INCHALLAH ON LES TUES)
     
     value->pid = fork();
@@ -87,29 +66,30 @@ int	main(int argc, char **argv, char **env)
         dup2(value->pipefds[i][1], STDOUT_FILENO);
         close(value->pipefds[i][1]);
         close(value->pipefds[i][0]);
-        value->argu = funct_split(argv[j], ' ');
+        value->argu = funct_split(argv[2], ' ');
         value->path = ft_find_path(env, value->argu[0], value);
-        execve(value->path, value->argu[i], env);
+        execve(value->path, value->argu, env);
         exit(EXIT_SUCCESS);
-        j++;
     }
     
-	while (i != value->cmds - 1)
+	while (i != value->cmds - 2)
 	{
 		value->pid = fork();
 		if (value->pid < 0)
 			return (2);
 		if (value->pid == 0)
 		{
+			printf("%d/n", i);
 			dup2(value->pipefds[i][1], STDOUT_FILENO);
 			close(value->pipefds[i][1]);
 			close(value->pipefds[i][0]);
 			value->argu = funct_split(argv[j], ' ');
 			value->path = ft_find_path(env, value->argu[0], value);
-			execve(value->path, value->argu[i], env);
+			execve(value->path, value->argu, env);
 			exit(EXIT_SUCCESS);
 		}
 		i++;
+		j++;
 	}
 	value->pid = fork();
 	if (value->pid  < 0)
@@ -119,7 +99,7 @@ int	main(int argc, char **argv, char **env)
 		dup2(value->pipefds[i][0], STDIN_FILENO);
 		close(value->pipefds[i][0]);
 		close(value->pipefds[i][1]);
-		value->argu2 = funct_split(argv[i], ' ');
+		value->argu2 = funct_split(argv[j], ' ');
 		value->path = ft_find_path(env, value->argu2[0], value);
 		execve(value->path, value->argu2, env);
 		exit(EXIT_SUCCESS);

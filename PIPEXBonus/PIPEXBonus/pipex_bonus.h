@@ -6,7 +6,7 @@
 /*   By: tpicoule <tpicoule@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:58:41 by tpicoule          #+#    #+#             */
-/*   Updated: 2023/02/03 12:22:06 by tpicoule         ###   ########.fr       */
+/*   Updated: 2023/02/06 09:47:10 by tpicoule         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_pipex
 	char	**argu;
 	char	**argu2;
 	char	*path;
-	int		pid2;
 	char	*newenv;
 	char	**goodpath;
 
